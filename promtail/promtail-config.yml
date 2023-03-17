@@ -1,0 +1,29 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs: # we have two different jobs, one that scrapes local data and one that scrapes data from a docker container
+
+- job_name: local # scrapes local logs
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: varlogs
+      __path__: /var/log/*log
+
+- job_name: docker # scrapes docker logs
+  pipeline_stages:
+    - docker: {}
+  static_configs:
+    - labels:
+        job: docker
+        __path__: /var/lib/docker/containers/*/*-json.log
+
+ # keep in mind that only newly created containers will send logs to loki, this means that you might have to recreate existing containers
