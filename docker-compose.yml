@@ -28,7 +28,7 @@ services:
   promtail:
     image: grafana/promtail:2.4.0
     volumes:
-      - /var/log:/var/log # can i use this?
+      - /var/log:/var/log
       - /Users/lbw504/Desktop/grafana_loki/promtail:/etc/promtail
     # ports:
     #   - "1514:1514" # this is only needed if you are going to send syslogs
