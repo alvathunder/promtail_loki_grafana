@@ -7,7 +7,7 @@ services:
     image: timberio/vector:0.18.1-debian
     volumes:
         - /var/run/docker.sock:/var/run/docker.sock
-        - /Users/lbw504/Desktop/grafana_loki/vector/vector-config.toml:/etc/vector/vector.toml:ro
+        - <PATH>/vector-config.toml:/etc/vector/vector.toml:ro
     ports:
         - "8383:8383"
     restart: unless-stopped
@@ -17,7 +17,7 @@ services:
   loki:
     image: grafana/loki:2.4.0
     volumes:
-      - /Users/lbw504/Desktop/grafana_loki/loki:/etc/loki #path and mapping that to inside of container
+      - <PATH>:/etc/loki #path and mapping that to inside of container
     ports:
       - "3100:3100"
     restart: unless-stopped
@@ -29,16 +29,17 @@ services:
     image: grafana/promtail:2.4.0
     volumes:
       - /var/log:/var/log
-      - /Users/lbw504/Desktop/grafana_loki/promtail:/etc/promtail
+      - <PATH>:/etc/promtail
     restart: unless-stopped
     command: -config.file=/etc/promtail/promtail-config.yml
     networks:
       - loki
+
   grafana:
     image: grafana/grafana:latest
     user: "1000" # uid 
     volumes:
-    - /Users/lbw504/Desktop/grafana_loki/grafana:/var/lib/grafana
+    - <PATH>:/var/lib/grafana
     ports:
       - "3001:3001"
     restart: unless-stopped
