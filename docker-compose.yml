@@ -17,7 +17,7 @@ services:
   loki:
     image: grafana/loki:2.4.0
     volumes:
-      - <PATH>:/etc/loki #path and mapping that to inside of container
+      - <YOUR-PATH>:/etc/loki #path and mapping that to inside of container
     ports:
       - "3100:3100"
     restart: unless-stopped
@@ -29,7 +29,7 @@ services:
     image: grafana/promtail:2.4.0
     volumes:
       - /var/log:/var/log
-      - <PATH>:/etc/promtail
+      - <YOUR-PATH>:/etc/promtail
     restart: unless-stopped
     command: -config.file=/etc/promtail/promtail-config.yml
     networks:
@@ -39,9 +39,9 @@ services:
     image: grafana/grafana:latest
     user: "1000" # uid 
     volumes:
-    - <PATH>:/var/lib/grafana
+    - <YOUR-PATH>:/var/lib/grafana
     ports:
-      - "3001:3001"
+      - "3000:3000"
     restart: unless-stopped
     networks:
       - loki
