@@ -9,7 +9,7 @@ Keep in mind that the Vector service is only needed if you're using a ARM-based 
  
 #### Check if all services are working by checking if metrics are being collected. Head over to your browser and type:
 ```<host-ip/localhost>:3100/metrics```
-Port 3000 is the default Loki port.
+Port 3100 is the default Loki port.
 
 #### Get started with Grafana. Head over you your browser and type:
 ```<host-ip/localhost>:3000```
@@ -28,7 +28,7 @@ Port 3000 is the default Grafana port.
 - Head over to the Grafana explore page by clicking the compass
 - Query logs form your local machines ```varlogs``` by typing:
 ```{job="varlogs"}``` which was in our promtail configuration
-- You can also serach for a specific term within the ```varlogs```like this: ```{job="varlogs"} |= `daemon` ```
+- You can also search for a specific term within the ```varlogs```like this: ```{job="varlogs"} |= `daemon` ```
 
 #### To collect docker logs on a non-ARM system.
 - The job for collecting docker logs is already defined in the promtail-config but to use this we have to first install a docker driver so that we can push the logs to Loki. Use the following command : ```docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions```
